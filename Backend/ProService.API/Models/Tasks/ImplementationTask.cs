@@ -1,6 +1,9 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ProService.API.Models.Tasks;
 
 public class ImplementationTask : TaskBase
 {
-    public string Description { get; set; } = string.Empty;
+    [MaxLength(400)]
+    public string? Description { get; set; }
 }

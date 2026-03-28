@@ -1,8 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ProService.API.Models.Tasks;
 
 public class MaintenanceTask : TaskBase
 {
-    public DateOnly Deadline { get; set; }
-    public string Services { get; set; } = string.Empty;
-    public string Servers { get; set; } = string.Empty;
+    public DateOnly? Deadline { get; set; }
+
+    [MaxLength(400)]
+    public string? ServicesToMaintain { get; set; }
+
+    [MaxLength(400)]
+    public string? ServersToMaintain { get; set; }
 }

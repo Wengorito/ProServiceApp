@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ProService.API.Models.Tasks;
 
 public class DeploymentTask : TaskBase
 {
-    public DateOnly Deadline { get; set; }
-    public string Scope { get; set; } = string.Empty;
+    public DateOnly? Deadline { get; set; }
+
+    [MaxLength(400)]
+    public string? DeploymentScope { get; set; }
 }
