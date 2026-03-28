@@ -11,4 +11,9 @@ public class MaintenanceTask : TaskBase
 
     [MaxLength(400)]
     public string? ServersToMaintain { get; set; }
+
+    public MaintenanceTask()
+    {
+        TaskType = Enums.TaskType.Maintenance;
+    }
 }

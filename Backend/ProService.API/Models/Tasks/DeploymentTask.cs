@@ -8,4 +8,9 @@ public class DeploymentTask : TaskBase
 
     [MaxLength(400)]
     public string? DeploymentScope { get; set; }
+
+    public DeploymentTask()
+    {
+        TaskType = Enums.TaskType.Deployment;
+    }
 }
