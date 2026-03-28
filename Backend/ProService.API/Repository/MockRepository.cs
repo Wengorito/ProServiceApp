@@ -28,7 +28,7 @@ public class MockRepository : IMockRepository
             {
                 Id = i,
                 Overview = $"Implementation Task {i}",
-                Difficulty = (i % 5) + 1,
+                Difficulty = (((i - 1) % 5) + 1),
                 ImplementationDetails = $"Details for task {i}",
             });
         }
@@ -39,7 +39,7 @@ public class MockRepository : IMockRepository
             {
                 Id = i,
                 Overview = $"Deployment Task {i}",
-                Difficulty = (i % 5) + 1,
+                Difficulty = (((i - 1) % 5) + 1),
                 Deadline = DateOnly.FromDateTime(DateTime.Now.AddDays(7)),
                 DeploymentScope = $"Scope {i}",
             });
@@ -51,13 +51,12 @@ public class MockRepository : IMockRepository
             {
                 Id = i,
                 Overview = $"Maintenance Task {i}",
-                Difficulty = (i % 5) + 1,
+                Difficulty = (((i - 1) % 5) + 1),
                 Deadline = DateOnly.FromDateTime(DateTime.Now.AddDays(14)),
                 ServicesToMaintain = $"Services for task {i}",
                 ServersToMaintain = $"Servers for task {i}",
             });
         }
-
     }
 
     public List<TaskBase> GetAllTasks() => _tasks;

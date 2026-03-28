@@ -16,5 +16,5 @@ public abstract class TaskBase
 
     public Enums.TaskStatus Status { get; set; } = Enums.TaskStatus.ToDo;
 
-    public int? AssignedUserId { get; set; }
+    public int? AssignedEmployeeId { get; set; }
 }
