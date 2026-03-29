@@ -1,15 +1,16 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
 using ProService.API.Models.Employees;
-using ProService.API.Repository;
+using ProService.API.Services.Interfaces;
 
 namespace ProService.API.Controllers;
 
-public class EmployeesController(IMockRepository repository) : BaseApiController(repository)
+public class EmployeesController(IEmployeeService employeeService) : BaseApiController
 {
+    private readonly IEmployeeService _employeeService = employeeService;
+
     [HttpGet]
-    public ActionResult<IEnumerable<Employee>> GetEmployees()
+    public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
     {
-        return Ok(_repository.GetAllEmployees());
+        return Ok(await _employeeService.GetAllEmployeesAsync());
     }
 }

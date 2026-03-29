@@ -7,10 +7,5 @@ namespace ProService.API.Controllers;
 [ApiController]
 public abstract class BaseApiController : ControllerBase
 {
-    protected readonly IMockRepository _repository;
 
-    protected BaseApiController(IMockRepository repository)
-    {
-        _repository = repository;
-    }
 }
