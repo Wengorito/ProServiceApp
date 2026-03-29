@@ -64,13 +64,23 @@ public class MockRepository : IMockRepository
 
     public async Task<IEnumerable<TaskBase>> GetAvailableTasksAsync(int page, int pageSize)
         => await Task.FromResult(_tasks
-            .Where(t => t.AssignedEmployeeId == null)
+            .Where(t => t.AssigneeId == null)
             .Skip((page - 1) * pageSize)
             .Take(pageSize));
 
-    public async Task<IEnumerable<TaskBase>> GetEmployeeAssignedTasksAsync(int employeeId, int page, int pageSize)
+    public async Task<IEnumerable<TaskBase>> GetAssignedTasksAsync(int employeeId, int page, int pageSize)
         => await Task.FromResult(_tasks
-            .Where(t => t.AssignedEmployeeId == employeeId)
+            .Where(t => t.AssigneeId == employeeId)
             .Skip((page - 1) * pageSize)
             .Take(pageSize));
+
+    public async Task AssignTasks(IEnumerable<int> tasksIds, int employeeId)
+    {
+        foreach(var task in _tasks.Where(t => tasksIds.Contains(t.Id)))
+        {
+            task.AssigneeId = employeeId;
+        }
+
+        return;
+    }
 }

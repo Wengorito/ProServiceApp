@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using ProService.API.DTOs;
 using ProService.API.Models.Tasks;
 using ProService.API.Services.Interfaces;
 
 namespace ProService.API.Controllers;
 
-public class TasksController(ITaskService taskService) : ControllerBase
+public class TasksController(ITaskService taskService) : BaseApiController
 {
     private readonly ITaskService _taskService = taskService;
 
@@ -15,15 +16,16 @@ public class TasksController(ITaskService taskService) : ControllerBase
     }
 
     [HttpGet("assigned")]
-    public async Task<ActionResult<IReadOnlyList<TaskBase>>> GetEmployeeAssignedTasks(int employeeId, int page = 1)
+    public async Task<ActionResult<IReadOnlyList<TaskBase>>> GetAssignedTasks(int employeeId, int page = 1)
     {
-        return await _taskService.GetEmployeeAssignedTasksAsync(employeeId, page, pageSize: 10);
+        return await _taskService.GetAssignedTasksAsync(employeeId, page, pageSize: 10);
     }
 
     [HttpPost("assign")]
-    public async Task<ActionResult> AssignTasks([FromBody] IEnumerable<int> taskIds, int employeeId)
+    public async Task<ActionResult> AssignTasks([FromBody] AssignTasksDto dto)
     {
-        await _taskService.AssignTasks(taskIds, employeeId);
+        // perform request validation
+        await _taskService.AssignTasks(dto.TasksIds, dto.EmployeeId);
         return Ok();
     }
 }

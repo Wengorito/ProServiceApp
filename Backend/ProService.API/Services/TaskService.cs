@@ -13,13 +13,14 @@ public class TaskService(IMockRepository mockRepository) : ITaskService
         return (await _mockRepository.GetAvailableTasksAsync(page, pageSize)).ToList();
     }
 
-    public async Task<List<TaskBase>> GetEmployeeAssignedTasksAsync(int employeeId, int page, int pageSize)
+    public async Task<List<TaskBase>> GetAssignedTasksAsync(int employeeId, int page, int pageSize)
     {
-        return (await _mockRepository.GetEmployeeAssignedTasksAsync(employeeId, page, pageSize)).ToList();
+        return (await _mockRepository.GetAssignedTasksAsync(employeeId, page, pageSize)).ToList();
     }
 
     public async Task AssignTasks(IEnumerable<int> taskIds, int employeeId)
     {
-        throw new NotImplementedException();
+        // perform buisness rules validation
+        await _mockRepository.AssignTasks(taskIds, employeeId);
     }
 }

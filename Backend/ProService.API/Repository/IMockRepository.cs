@@ -7,5 +7,6 @@ public interface IMockRepository
 {
     Task<IEnumerable<Employee>> GetAllEmployeesAsync();
     Task<IEnumerable<TaskBase>> GetAvailableTasksAsync(int page, int pageSize);
-    Task<IEnumerable<TaskBase>> GetEmployeeAssignedTasksAsync(int page, int pageSize, int employeeId);
+    Task<IEnumerable<TaskBase>> GetAssignedTasksAsync(int employeeId, int page, int pageSize);
+    Task AssignTasks(IEnumerable<int> tasksIds, int employeeId);
 }
