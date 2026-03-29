@@ -1,8 +1,8 @@
-using ProService.API.Models.Employees;
+using ProService.API.DTOs.Employees;
 
 namespace ProService.API.Services.Interfaces;
 
 public interface IEmployeeService
 {
-    Task<IEnumerable<Employee>> GetAllEmployeesAsync();
+    Task<IEnumerable<EmployeeDto>> GetEmployeesAsync();
 }

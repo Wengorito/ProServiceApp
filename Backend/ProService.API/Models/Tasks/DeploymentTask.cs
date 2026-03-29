@@ -11,6 +11,6 @@ public class DeploymentTask : TaskBase
 
     public DeploymentTask()
     {
-        TaskType = Enums.TaskType.Deployment;
+        Type = Enums.TaskType.Deployment;
     }
 }

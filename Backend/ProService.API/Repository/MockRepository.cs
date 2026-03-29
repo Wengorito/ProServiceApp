@@ -6,18 +6,18 @@ namespace ProService.API.Repository;
 
 public class MockRepository : IMockRepository
 {
-    private readonly List<Employee> _employees;
-    private readonly List<TaskBase> _tasks;
+    private List<Employee> _employees;
+    private List<TaskBase> _tasks;
 
     public MockRepository()
     {
         _employees = new List<Employee>
         {
-            new() { Id = 1, Name = "Krzysztof (Dev)", Role = EmployeeRole.Developer },
-            new() { Id = 2, Name = "Zenek (Dev)", Role = EmployeeRole.Developer },
-            new() { Id = 3, Name = "Hania (DevOps)", Role = EmployeeRole.DevOpsAdmin },
-            new() { Id = 4, Name = "Marcin (DevOps)", Role = EmployeeRole.DevOpsAdmin },
-            new() { Id = 5, Name = "Ewelina (DevOps)", Role = EmployeeRole.DevOpsAdmin }
+            new() { Id = 1, Name = "Krzysztof", Role = EmployeeRole.Developer },
+            new() { Id = 2, Name = "Zenek", Role = EmployeeRole.Developer },
+            new() { Id = 3, Name = "Hania", Role = EmployeeRole.DevOpsAdmin },
+            new() { Id = 4, Name = "Marcin", Role = EmployeeRole.DevOpsAdmin },
+            new() { Id = 5, Name = "Ewelina", Role = EmployeeRole.DevOpsAdmin }
         };
 
         _tasks = new List<TaskBase>();
@@ -30,6 +30,7 @@ public class MockRepository : IMockRepository
                 Overview = $"Implementation Task {i}",
                 Difficulty = ((i - 1) % 5) + 1,
                 ImplementationDetails = $"Details for task {i}",
+                AssigneeId = 1
             });
         }
 
@@ -45,7 +46,7 @@ public class MockRepository : IMockRepository
             });
         }
 
-        for (int i = 21; i <= 22; i++)
+        for (int i = 21; i <= 28; i++)
         {
             _tasks.Add(new MaintenanceTask
             {
@@ -59,7 +60,7 @@ public class MockRepository : IMockRepository
         }
     }
 
-    public async Task<IEnumerable<Employee>> GetAllEmployeesAsync() 
+    public async Task<IEnumerable<Employee>> GeEmployeesAsync() 
         => await Task.FromResult(_employees);
 
     public async Task<IEnumerable<TaskBase>> GetAvailableTasksAsync(int page, int pageSize)

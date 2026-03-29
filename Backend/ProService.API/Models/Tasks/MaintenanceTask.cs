@@ -14,6 +14,6 @@ public class MaintenanceTask : TaskBase
 
     public MaintenanceTask()
     {
-        TaskType = Enums.TaskType.Maintenance;
+        Type = Enums.TaskType.Maintenance;
     }
 }

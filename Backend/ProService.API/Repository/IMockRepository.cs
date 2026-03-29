@@ -5,7 +5,7 @@ namespace ProService.API.Repository;
 
 public interface IMockRepository
 {
-    Task<IEnumerable<Employee>> GetAllEmployeesAsync();
+    Task<IEnumerable<Employee>> GeEmployeesAsync();
     Task<IEnumerable<TaskBase>> GetAvailableTasksAsync(int page, int pageSize);
     Task<IEnumerable<TaskBase>> GetAssignedTasksAsync(int employeeId, int page, int pageSize);
     Task AssignTasks(IEnumerable<int> tasksIds, int employeeId);

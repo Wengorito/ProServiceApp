@@ -9,6 +9,6 @@ public class ImplementationTask : TaskBase
 
     public ImplementationTask()
     {
-        TaskType = Enums.TaskType.Implementation;
+        Type = Enums.TaskType.Implementation;
     }
 }
