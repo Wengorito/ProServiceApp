@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ProService.API.DTOs.Tasks;
+namespace ProService.API.DTOs.Tasks.Requests;
 
 public record AssignTasksRequest
 {
-    [Range(1, int.MaxValue, ErrorMessage = "UserId must be integer greater than 0.")]
+    [Range(1, int.MaxValue, ErrorMessage = "EmployeeId must be integer greater than 0.")]
     public int EmployeeId { get; init; }
     
     [Required(ErrorMessage = "TaskIds list is required.")]

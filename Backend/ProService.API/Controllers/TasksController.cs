@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
-using ProService.API.Commons;
-using ProService.API.DTOs.Tasks;
+using ProService.API.DTOs.Tasks.Requests;
+using ProService.API.DTOs.Tasks.Responses;
 using ProService.API.Services.Interfaces;
 
 namespace ProService.API.Controllers;
@@ -11,14 +9,14 @@ public class TasksController(ITaskAssignmentService taskService) : BaseApiContro
 {
     private readonly ITaskAssignmentService _taskService = taskService;
 
-    [HttpGet("available")]
-    public async Task<ActionResult<IEnumerable<TaskDto>>> GetAvailableTasks(int pageNumber, int pageSize)
+    [HttpPost("available")]
+    public async Task<ActionResult<IEnumerable<TaskDto>>> GetAvailableTasks([FromBody] GetAvailableTasksRequest request)
     {
-        NormalizePagination(ref pageNumber, ref pageSize);
+        // NormalizePagination(ref request.PageNumber, ref pageSize);
 
         try
         {
-            var tasks = await _taskService.GetAvailableTasksAsync(pageNumber, pageSize);
+            var tasks = await _taskService.GetAvailableTasksAsync(request.PageNumber, request.PageSize);
             return Ok(tasks);
         }
         catch (Exception ex)
@@ -27,19 +25,12 @@ public class TasksController(ITaskAssignmentService taskService) : BaseApiContro
         }
     }
 
-    [HttpGet("assigned")]
-    public async Task<ActionResult<IEnumerable<TaskDto>>> GetAssignedTasks(int employeeId, int pageNumber, int pageSize)
+    [HttpPost("assigned")]
+    public async Task<ActionResult<IEnumerable<TaskDto>>> GetAssignedTasks(GetAssignedTasksRequest request)
     {
-        NormalizePagination(ref pageNumber, ref pageSize);
-
-        if (employeeId < 1)
-        {
-            return BadRequest("EmployeeId must be integer greater than 0");
-        }
-
         try
         {
-            var tasks = await _taskService.GetAssignedTasksAsync(employeeId, pageNumber, pageSize);
+            var tasks = await _taskService.GetAssignedTasksAsync(request.EmployeeId, request.PageNumber, request.PageSize);
             return Ok(tasks);
         }
         catch (Exception ex)
@@ -59,19 +50,6 @@ public class TasksController(ITaskAssignmentService taskService) : BaseApiContro
         catch(Exception ex)
         {
             return BadRequest(ex.Message);
-        }
-    }
-
-    private static void NormalizePagination(ref int pageNumber, ref int pageSize)
-    {
-        if (pageNumber < 1)
-        {
-            pageNumber = 1;
-        }
-
-        if (pageSize < 1 || pageSize > ApiConstants.MAX_TASKS_PAGE_SIZE)
-        {
-            pageSize = ApiConstants.MAX_TASKS_PAGE_SIZE;
         }
     }
 }

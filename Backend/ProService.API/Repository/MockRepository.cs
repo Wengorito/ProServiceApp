@@ -71,18 +71,18 @@ public class MockRepository : IMockRepository
     public async Task<IEnumerable<TaskBase>> GetEmployeeTasksAsync(int employeeId)
         => _tasks.Where(t => t.AssigneeId == employeeId);
 
-    public async Task<IEnumerable<TaskBase>> GetAvailableTasksAsync(int page, int pageSize)
+    public async Task<IEnumerable<TaskBase>> GetAvailableTasksAsync(int pageNumber, int pageSize)
         => _tasks
             .Where(t => t.AssigneeId == null)
             .OrderByDescending(t => t.Difficulty)
-            .Skip((page - 1) * pageSize)
+            .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize);
 
-    public async Task<IEnumerable<TaskBase>> GetAssignedTasksAsync(int employeeId, int page, int pageSize)
+    public async Task<IEnumerable<TaskBase>> GetAssignedTasksAsync(int employeeId, int pageNumber, int pageSize)
         => _tasks
             .Where(t => t.AssigneeId == employeeId)
             .OrderByDescending(t => t.Difficulty)
-            .Skip((page - 1) * pageSize)
+            .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize);
 
     public async Task AssignTasks(IEnumerable<int> tasksIds, int employeeId)
