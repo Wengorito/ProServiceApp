@@ -60,21 +60,30 @@ public class MockRepository : IMockRepository
     }
 
     public async Task<IEnumerable<Employee>> GeEmployeesAsync() 
-        => await Task.FromResult(_employees);
+        => _employees;
+
+    public async Task<Employee?> GetEmployeeAsync(int id)
+        => _employees.FirstOrDefault(e => e.Id == id);
+
+    public async Task<IEnumerable<TaskBase>> GetTasksAsync(IEnumerable<int> tasksIds)
+        => _tasks.Where(t => tasksIds.Contains(t.Id));
+
+    public async Task<IEnumerable<TaskBase>> GetEmployeeTasksAsync(int employeeId)
+        => _tasks.Where(t => t.AssigneeId == employeeId);
 
     public async Task<IEnumerable<TaskBase>> GetAvailableTasksAsync(int page, int pageSize)
-        => await Task.FromResult(_tasks
+        => _tasks
             .Where(t => t.AssigneeId == null)
             .OrderByDescending(t => t.Difficulty)
             .Skip((page - 1) * pageSize)
-            .Take(pageSize));
+            .Take(pageSize);
 
     public async Task<IEnumerable<TaskBase>> GetAssignedTasksAsync(int employeeId, int page, int pageSize)
-        => await Task.FromResult(_tasks
+        => _tasks
             .Where(t => t.AssigneeId == employeeId)
             .OrderByDescending(t => t.Difficulty)
             .Skip((page - 1) * pageSize)
-            .Take(pageSize));
+            .Take(pageSize);
 
     public async Task AssignTasks(IEnumerable<int> tasksIds, int employeeId)
     {

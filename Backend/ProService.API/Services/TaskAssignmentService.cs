@@ -1,12 +1,14 @@
 using ProService.API.DTOs.Tasks;
 using ProService.API.Repository;
 using ProService.API.Services.Interfaces;
+using ProService.API.Validators;
 
 namespace ProService.API.Services;
 
-public class TaskAssignmentService(IMockRepository mockRepository) : ITaskAssignmentService
+public class TaskAssignmentService(IMockRepository mockRepository, ITaskAssignmentValidator validator) : ITaskAssignmentService
 {
     private readonly IMockRepository _mockRepository = mockRepository;
+    private readonly ITaskAssignmentValidator _validator = validator;
 
     public async Task<IEnumerable<TaskDto>> GetAvailableTasksAsync(int pageNumber, int pageSize)
     {
@@ -18,6 +20,12 @@ public class TaskAssignmentService(IMockRepository mockRepository) : ITaskAssign
     public async Task<IEnumerable<TaskDto>> GetAssignedTasksAsync(int employeeId, int pageNumber, int pageSize)
     {
         ValidatePagination(ref pageNumber, ref pageSize);
+
+        var employee = await _mockRepository.GetEmployeeAsync(employeeId);
+        if (employee == null)
+        {
+            throw new Exception($"Employee not found (id: {employeeId})");
+        }
         
         // czytelniejszy zapis
         var tasks = await _mockRepository.GetAssignedTasksAsync(employeeId, pageNumber, pageSize);
@@ -26,7 +34,17 @@ public class TaskAssignmentService(IMockRepository mockRepository) : ITaskAssign
 
     public async Task AssignTasks(IEnumerable<int> taskIds, int employeeId)
     {
-        // perform buisness rules validation
+        var employee = await _mockRepository.GetEmployeeAsync(employeeId);
+        if (employee == null)
+        {
+            throw new Exception($"Employee not found (id: {employeeId})");
+        }
+
+        var newTasks = (await _mockRepository.GetTasksAsync(taskIds)).ToList();
+        var currentTasks = (await _mockRepository.GetEmployeeTasksAsync(employeeId)).ToList();
+
+        _validator.Validate(employee, currentTasks, newTasks);
+
         await _mockRepository.AssignTasks(taskIds, employeeId);
     }
 
@@ -42,9 +60,9 @@ public class TaskAssignmentService(IMockRepository mockRepository) : ITaskAssign
             throw new ArgumentException($"Page size must be integer greater than 0.");
         }
 
-        if (pageSize > Commons.ApiConstants.MAX_TASK_PAGE_SIZE)
+        if (pageSize > Commons.ApiConstants.MAX_TASKS_PAGE_SIZE)
         {
-            throw new ArgumentException($"Max page size is {Commons.ApiConstants.MAX_TASK_PAGE_SIZE}");
+            throw new ArgumentException($"Max page size is {Commons.ApiConstants.MAX_TASKS_PAGE_SIZE}");
         }
     }
 }

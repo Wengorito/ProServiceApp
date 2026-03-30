@@ -14,7 +14,7 @@ public class TasksController(ITaskAssignmentService taskService) : BaseApiContro
     [HttpGet("available")]
     public async Task<ActionResult<IEnumerable<TaskDto>>> GetAvailableTasks(int pageNumber, int pageSize)
     {
-        AdjustPagination(ref pageNumber, ref pageSize);
+        NormalizePagination(ref pageNumber, ref pageSize);
 
         try
         {
@@ -30,7 +30,12 @@ public class TasksController(ITaskAssignmentService taskService) : BaseApiContro
     [HttpGet("assigned")]
     public async Task<ActionResult<IEnumerable<TaskDto>>> GetAssignedTasks(int employeeId, int pageNumber, int pageSize)
     {
-        AdjustPagination(ref pageNumber, ref pageSize);
+        NormalizePagination(ref pageNumber, ref pageSize);
+
+        if (employeeId < 1)
+        {
+            return BadRequest("EmployeeId must be integer greater than 0");
+        }
 
         try
         {
@@ -57,16 +62,16 @@ public class TasksController(ITaskAssignmentService taskService) : BaseApiContro
         }
     }
 
-    private static void AdjustPagination(ref int pageNumber, ref int pageSize)
+    private static void NormalizePagination(ref int pageNumber, ref int pageSize)
     {
         if (pageNumber < 1)
         {
             pageNumber = 1;
         }
 
-        if (pageSize < 1 || pageSize > ApiConstants.MAX_TASK_PAGE_SIZE)
+        if (pageSize < 1 || pageSize > ApiConstants.MAX_TASKS_PAGE_SIZE)
         {
-            pageSize = ApiConstants.MAX_TASK_PAGE_SIZE;
+            pageSize = ApiConstants.MAX_TASKS_PAGE_SIZE;
         }
     }
 }
