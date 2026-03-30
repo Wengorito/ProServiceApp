@@ -3,7 +3,6 @@ using ProService.API.Models.Enums;
 using ProService.API.Models.Tasks;
 using ProService.API.Models.Tasks.Enums;
 using ProService.API.Validators;
-using Xunit;
 
 namespace ProService.API.Tests.Validators;
 

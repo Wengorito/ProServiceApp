@@ -6,7 +6,6 @@ using ProService.API.Models.Tasks.Enums;
 using ProService.API.Repository;
 using ProService.API.Services;
 using ProService.API.Validators;
-using Xunit;
 using TaskStatus = ProService.API.Models.Tasks.Enums.TaskStatus;
 
 namespace ProService.API.Tests.Services;
@@ -130,7 +129,7 @@ public class TaskAssignmentServiceTests
     }
 
     [Fact]
-    public async Task AssignTasks_WithNoTasksOfIds_ThrowsException()
+    public async Task AssignTasks_WithNonexistentTasks_ThrowsException()
     {
         // Arrange
         var employeeId = 1;

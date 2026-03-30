@@ -1,11 +1,8 @@
 using Moq;
-using ProService.API.DTOs.Employees;
 using ProService.API.Models.Employees;
 using ProService.API.Models.Enums;
-using ProService.API.Models.Tasks.Enums;
 using ProService.API.Repository;
 using ProService.API.Services;
-using Xunit;
 
 namespace ProService.API.Tests.Services;
 
