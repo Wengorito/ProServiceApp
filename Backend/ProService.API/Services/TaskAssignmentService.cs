@@ -33,11 +33,16 @@ public class TaskAssignmentService(IMockRepository mockRepository, ITaskAssignme
         var employee = await _mockRepository.GetEmployeeAsync(employeeId);
         if (employee == null)
         {
-            throw new Exception($"Employee not found (id: {employeeId})");
+            throw new Exception("No employee by given ID found.");
         }
 
-        var newTasks = (await _mockRepository.GetTasksAsync(taskIds)).ToList();
         var currentTasks = (await _mockRepository.GetEmployeeTasksAsync(employeeId)).ToList();
+
+        var newTasks = (await _mockRepository.GetTasksAsync(taskIds)).ToList();
+        if (newTasks.Count == 0)
+        {
+            throw new Exception($"No tasks by given IDs found.");
+        }
 
         _validator.Validate(employee, currentTasks, newTasks);
 

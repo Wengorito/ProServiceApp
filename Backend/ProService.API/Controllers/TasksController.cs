@@ -12,8 +12,6 @@ public class TasksController(ITaskAssignmentService taskService) : BaseApiContro
     [HttpPost("available")]
     public async Task<ActionResult<IEnumerable<TaskDto>>> GetAvailableTasks([FromBody] GetAvailableTasksRequest request)
     {
-        // NormalizePagination(ref request.PageNumber, ref pageSize);
-
         try
         {
             var tasks = await _taskService.GetAvailableTasksAsync(request.PageNumber, request.PageSize);
