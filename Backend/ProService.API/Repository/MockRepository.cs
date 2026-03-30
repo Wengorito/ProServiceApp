@@ -29,8 +29,7 @@ public class MockRepository : IMockRepository
                 Id = i,
                 Overview = $"Implementation Task {i}",
                 Difficulty = ((i - 1) % 5) + 1,
-                ImplementationDetails = $"Details for task {i}",
-                AssigneeId = 1
+                ImplementationDetails = $"Details for task {i}"
             });
         }
 
