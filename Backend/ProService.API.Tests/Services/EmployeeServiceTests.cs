@@ -1,8 +1,8 @@
 using Moq;
-using ProService.API.Models.Employees;
-using ProService.API.Models.Enums;
-using ProService.API.Repository;
-using ProService.API.Services;
+using ProService.API.Domain.Models.Employees;
+using ProService.API.Domain.Models.Employees.Enums;
+using ProService.API.Domain.Repository;
+using ProService.API.Application.Services;
 
 namespace ProService.API.Tests.Services;
 

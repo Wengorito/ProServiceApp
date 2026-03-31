@@ -1,8 +1,8 @@
-using ProService.API.Models.Employees;
-using ProService.API.Models.Enums;
-using ProService.API.Models.Tasks;
-using ProService.API.Models.Tasks.Enums;
-using ProService.API.Validators;
+using ProService.API.Domain.Models.Employees;
+using ProService.API.Domain.Models.Employees.Enums;
+using ProService.API.Domain.Models.Tasks;
+using ProService.API.Domain.Models.Tasks.Enums;
+using ProService.API.Application.Validators;
 
 namespace ProService.API.Tests.Validators;
 

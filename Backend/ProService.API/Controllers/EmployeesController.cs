@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using ProService.API.DTOs.Employees;
-using ProService.API.Services.Interfaces;
+using ProService.API.Application.DTOs.Employees;
+using ProService.API.Application.Services.Interfaces;
 
 namespace ProService.API.Controllers;
 

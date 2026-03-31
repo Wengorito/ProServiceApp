@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using ProService.API.DTOs.Tasks.Requests;
-using ProService.API.DTOs.Tasks.Responses;
-using ProService.API.Services.Interfaces;
+using ProService.API.Application.DTOs.Tasks.Requests;
+using ProService.API.Application.DTOs.Tasks.Responses;
+using ProService.API.Application.Services.Interfaces;
 
 namespace ProService.API.Controllers;
 

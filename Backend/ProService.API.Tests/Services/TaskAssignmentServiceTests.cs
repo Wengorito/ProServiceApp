@@ -1,12 +1,12 @@
 using Moq;
-using ProService.API.Models.Employees;
-using ProService.API.Models.Enums;
-using ProService.API.Models.Tasks;
-using ProService.API.Models.Tasks.Enums;
-using ProService.API.Repository;
-using ProService.API.Services;
-using ProService.API.Validators;
-using TaskStatus = ProService.API.Models.Tasks.Enums.TaskStatus;
+using ProService.API.Domain.Models.Employees;
+using ProService.API.Domain.Models.Employees.Enums;
+using ProService.API.Domain.Models.Tasks;
+using ProService.API.Domain.Models.Tasks.Enums;
+using ProService.API.Domain.Repository;
+using ProService.API.Application.Services;
+using ProService.API.Application.Validators;
+using TaskStatus = ProService.API.Domain.Models.Tasks.Enums.TaskStatus;
 
 namespace ProService.API.Tests.Services;
 
@@ -29,8 +29,8 @@ public class TaskAssignmentServiceTests
         // Arrange
         var tasks = new List<ImplementationTask>
         {
-            new() { Id = 1, Overview = "Task 1", Difficulty = 2, Type = TaskType.Implementation, Status = ProService.API.Models.Tasks.Enums.TaskStatus.ToDo },
-            new() { Id = 2, Overview = "Task 2", Difficulty = 3, Type = TaskType.Implementation, Status = ProService.API.Models.Tasks.Enums.TaskStatus.ToDo }
+            new() { Id = 1, Overview = "Task 1", Difficulty = 2, Type = TaskType.Implementation, Status = TaskStatus.ToDo },
+            new() { Id = 2, Overview = "Task 2", Difficulty = 3, Type = TaskType.Implementation, Status = TaskStatus.ToDo }
         };
 
         _mockRepository.Setup(r => r.GetAvailableTasksAsync(1, 10)).ReturnsAsync(tasks);

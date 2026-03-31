@@ -1,7 +1,7 @@
-using ProService.API.Repository;
-using ProService.API.Services;
-using ProService.API.Services.Interfaces;
-using ProService.API.Validators;
+using ProService.API.Domain.Repository;
+using ProService.API.Application.Services;
+using ProService.API.Application.Services.Interfaces;
+using ProService.API.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
