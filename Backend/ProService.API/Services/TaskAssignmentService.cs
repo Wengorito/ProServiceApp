@@ -10,12 +10,12 @@ public class TaskAssignmentService(IMockRepository mockRepository, ITaskAssignme
     private readonly IMockRepository _mockRepository = mockRepository;
     private readonly ITaskAssignmentValidator _validator = validator;
 
-    public async Task<IEnumerable<TaskDto>> GetAvailableTasksAsync(int pageNumber, int pageSize)
+    public async Task<IEnumerable<TaskResponseDto>> GetAvailableTasksAsync(int pageNumber, int pageSize)
     {
-        return (await _mockRepository.GetAvailableTasksAsync(pageNumber, pageSize)).Select(t => new TaskDto(t));
+        return (await _mockRepository.GetAvailableTasksAsync(pageNumber, pageSize)).Select(t => new TaskResponseDto(t));
     }
 
-    public async Task<IEnumerable<TaskDto>> GetAssignedTasksAsync(int employeeId, int pageNumber, int pageSize)
+    public async Task<IEnumerable<TaskResponseDto>> GetAssignedTasksAsync(int employeeId, int pageNumber, int pageSize)
     {
         var employee = await _mockRepository.GetEmployeeAsync(employeeId);
         if (employee == null)
@@ -25,7 +25,7 @@ public class TaskAssignmentService(IMockRepository mockRepository, ITaskAssignme
         
         // czytelniejszy zapis
         var tasks = await _mockRepository.GetAssignedTasksAsync(employeeId, pageNumber, pageSize);
-        return tasks.Select(t => new TaskDto(t));
+        return tasks.Select(t => new TaskResponseDto(t));
     }
 
     public async Task AssignTasks(IEnumerable<int> taskIds, int employeeId)

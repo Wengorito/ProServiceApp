@@ -27,7 +27,7 @@ public class UniqueItemsAttribute : ValidationAttribute
             return new ValidationResult(ErrorMessage ?? "List contains duplicates.");
 
         if(list.Any(x => x < 1 || x > int.MaxValue))
-            return new ValidationResult(ErrorMessage ?? "All Task IDs must be integer greater than 0.");
+            return new ValidationResult(ErrorMessage ?? "Task IDs must be integers greater than 0.");
 
         return ValidationResult.Success;
     }

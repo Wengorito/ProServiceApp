@@ -4,7 +4,7 @@ namespace ProService.API.Services.Interfaces;
 
 public interface ITaskAssignmentService
 {
-    Task<IEnumerable<TaskDto>> GetAvailableTasksAsync(int pageNumber, int pageSize);
-    Task<IEnumerable<TaskDto>> GetAssignedTasksAsync(int employeeId, int pageNumber, int pageSize);
+    Task<IEnumerable<TaskResponseDto>> GetAvailableTasksAsync(int pageNumber, int pageSize);
+    Task<IEnumerable<TaskResponseDto>> GetAssignedTasksAsync(int employeeId, int pageNumber, int pageSize);
     Task AssignTasks(IEnumerable<int> taskIds, int employeeId);
 }

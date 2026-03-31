@@ -10,7 +10,7 @@ public class TasksController(ITaskAssignmentService taskService) : BaseApiContro
     private readonly ITaskAssignmentService _taskService = taskService;
 
     [HttpPost("available")]
-    public async Task<ActionResult<IEnumerable<TaskDto>>> GetAvailableTasks([FromBody] GetAvailableTasksRequest request)
+    public async Task<ActionResult<IEnumerable<TaskResponseDto>>> GetAvailableTasks([FromBody] GetAvailableTasksRequest request)
     {
         try
         {
@@ -24,7 +24,7 @@ public class TasksController(ITaskAssignmentService taskService) : BaseApiContro
     }
 
     [HttpPost("assigned")]
-    public async Task<ActionResult<IEnumerable<TaskDto>>> GetAssignedTasks(GetAssignedTasksRequest request)
+    public async Task<ActionResult<IEnumerable<TaskResponseDto>>> GetAssignedTasks(GetAssignedTasksRequest request)
     {
         try
         {

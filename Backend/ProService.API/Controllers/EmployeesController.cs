@@ -9,7 +9,7 @@ public class EmployeesController(IEmployeeService employeeService) : BaseApiCont
     private readonly IEmployeeService _employeeService = employeeService;
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetEmployees()
+    public async Task<ActionResult<IEnumerable<EmployeeResponseDto>>> GetEmployees()
     {
         return Ok(await _employeeService.GetEmployeesAsync());
     }

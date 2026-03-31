@@ -4,5 +4,5 @@ namespace ProService.API.Services.Interfaces;
 
 public interface IEmployeeService
 {
-    Task<IEnumerable<EmployeeDto>> GetEmployeesAsync();
+    Task<IEnumerable<EmployeeResponseDto>> GetEmployeesAsync();
 }
